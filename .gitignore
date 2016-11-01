@@ -2,3 +2,5 @@
 .cproject
 *.exe
 bin/
+*.o
+*.d
