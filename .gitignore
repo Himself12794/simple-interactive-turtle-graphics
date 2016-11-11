@@ -4,4 +4,4 @@
 bin/
 *.o
 *.d
-/Release
+/.settings/
