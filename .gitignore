@@ -1,0 +1,8 @@
+.project
+.cproject
+*.exe
+bin/
+*.o
+*.d
+/.settings/
+/Release
