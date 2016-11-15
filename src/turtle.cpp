@@ -10,7 +10,7 @@
 #include <cmath>
 #include <iostream>
 
-namespace t_graphics {
+using namespace t_graphics;
 
 	turtle::~turtle() {
 
@@ -87,4 +87,3 @@ namespace t_graphics {
 
 		glPopMatrix();
 	}
-}

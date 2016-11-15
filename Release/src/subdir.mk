@@ -6,16 +6,19 @@
 CPP_SRCS += \
 ../src/main.cpp \
 ../src/turtle.cpp \
+../src/utils.cpp \
 ../src/window.cpp 
 
 OBJS += \
 ./src/main.o \
 ./src/turtle.o \
+./src/utils.o \
 ./src/window.o 
 
 CPP_DEPS += \
 ./src/main.d \
 ./src/turtle.d \
+./src/utils.d \
 ./src/window.d 
 
 
