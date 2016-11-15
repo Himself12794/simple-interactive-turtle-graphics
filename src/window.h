@@ -24,8 +24,7 @@ public:
 	virtual ~window();
 	void add_turtle(turtle *turt);
 	void open(int argc, char **argv);
-	void kill();
-	void display();
+	void kill();void display();
 	/**
 	 * This must be set before the window is opened to have an affect.
 	 */
@@ -39,12 +38,11 @@ public:
 private:
 	void (*key_callback)(unsigned char, int, int) = {};
 	void init();
-	std::vector<turtle*> *turtles = new std::vector<turtle*>();
+	void display();
+	std::vector<turtle*> turtles;
 	const char* name;
 	bool bounded = true;
-	int x;
-	int y;
-
+	point loc;
 
 };
 

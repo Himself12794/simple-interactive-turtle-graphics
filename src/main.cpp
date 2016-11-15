@@ -4,8 +4,6 @@
  *  Created on: Nov 1, 2016
  *      Author: phwhitin
  */
-#include <GL/glut.h>
-#include <iostream>
 #include "window.h"
 #include "turtle.h"
 #include <thread>
@@ -21,7 +19,7 @@ turtle *turt;
 void keys(unsigned char, int, int);
 
 void start() {
-	wind = new window(500, 500, "Hello World");
+	wind = new window(500, 500, "Control the Turtle!");
 	turt = new turtle();
 	wind->set_key_callback(keys);
 
@@ -48,7 +46,10 @@ void keys(unsigned char key, int x, int y) {
 	case ' ':
 		turt->toggle_pen();
 		break;
-
+	case 'q':
+	case 'Q':
+		exit(0);
+		break;
 	}
 }
 
@@ -59,7 +60,6 @@ int main(int argc, char **argv) {
 	std::thread main(start);
 
 	main.join();
-	//wind.kill();
 }
 
 

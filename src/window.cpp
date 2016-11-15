@@ -28,8 +28,8 @@ void window::display() {
 	glClearColor(1.0F, 1.0F, 1.0F, 1.0F);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (!turtles->empty()) {
-		for (turtle *turt : *turtles) {
+	if (!turtles.empty()) {
+		for (turtle *turt : turtles) {
 			turt->draw_lines();
 			turt->draw_turtle();
 		}
@@ -49,13 +49,13 @@ void window::kill() {
 }
 
 window::window(int x, int y, const char* name) {
-	this->x = x;
-	this->y = y;
+	this->loc[0] = x;
+	this->loc[1] = y;
 	this->name = name;
 }
 
 void window::add_turtle(turtle *turt) {
-	turtles->push_back(turt);
+	turtles.push_back(turt);
 }
 
 /**
@@ -66,7 +66,7 @@ void window::open(int argc, char **argv) {
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize(x, y);
+	glutInitWindowSize(loc[0], loc[1]);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow(name);
 	curr = this;
@@ -82,6 +82,6 @@ void window::init() {
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0.0, x, 0.0, y);
+	gluOrtho2D(0.0, loc[0], 0.0, loc[1]);
 	glMatrixMode(GL_MODELVIEW);
 }
