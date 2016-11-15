@@ -10,9 +10,27 @@
 
 #include <gl/glut.h>
 #include <vector>
-#include "utils.h"
+#include <cmath>
+
+#define PI 3.14159265358979323846
 
 namespace t_graphics {
+
+	static double to_rads(double deg) {
+		return deg * PI / 180.0;
+	}
+	/**
+	 * Ensures the angle is between -360 and 360
+	 */
+	static int norm_ang(int angle) {
+		if (angle >= 360) {
+			return angle - (angle / 360) * 360;
+		} else if (angle <= -360.0) {
+			return angle - (angle / 360) * 360;
+		} else {
+			return angle;
+		}
+	}
 
 	typedef int point[2];
 
@@ -28,7 +46,15 @@ namespace t_graphics {
 		color color;
 		int width;
 		point origin;
-		float angle_offset;
+		int angle_offset;
+
+		int get_end_x() {
+			return (cos(to_rads(angle_offset)) * length) + origin[0];
+		}
+
+		int get_end_y() {
+			return (sin(to_rads(angle_offset)) * length) + origin[1];
+		}
 	};
 
 	class turtle {
@@ -49,12 +75,12 @@ namespace t_graphics {
 			this->width = width;
 		}
 
-		void turn_left(float angle) {
-			set_angle(angle_offset + angle);
+		void turn_left(int angle) {
+			angle_offset = norm_ang(angle_offset + angle);
 		}
 
-		void turn_right(float angle) {
-			set_angle(angle_offset - angle);
+		void turn_right(int angle) {
+			angle_offset = norm_ang(angle_offset - angle);
 		}
 
 		void pen_down(bool val) {
@@ -70,19 +96,16 @@ namespace t_graphics {
 		void forward(int dist);
 
 	private:
-		void set_angle(float ang) {
-			angle_offset = norm_angle(ang);
-		}
 		void draw_turtle();
 		void draw_lines();
 		line create_line(int length);
 
 		std::vector<line> lines;
 		point location = {0,0};
-		color color = {1.0,1.0,1.0};
+		color color = {0.0,0.0,0.0};
 		int width = 1;
 		bool pen_location = true;
-		float angle_offset = 0.0f;
+		int angle_offset = 90;
 
 	};
 

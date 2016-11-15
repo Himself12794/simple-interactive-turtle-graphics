@@ -23,7 +23,9 @@ void start() {
 	turt->set_location(250,250);
 	turt->set_turtle_width(10);
 	//turt->turn_right(45.0f);
-	turt->forward(25);
+	turt->forward(100);
+	turt->turn_right(45.0f);
+	turt->forward(50);
 	wind->open(argsc, args);
 }
 

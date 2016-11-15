@@ -23,6 +23,7 @@ namespace t_graphics {
 
 		if (!turtles->empty()) {
 			for (turtle *turt : *turtles) {
+				turt->draw_lines();
 				turt->draw_turtle();
 			}
 		}

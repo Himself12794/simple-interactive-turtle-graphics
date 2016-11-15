@@ -8,7 +8,6 @@
 #include <GL/glut.h>
 #include "turtle.h"
 #include <cmath>
-#include "utils.h"
 #include <iostream>
 
 namespace t_graphics {
@@ -28,13 +27,15 @@ namespace t_graphics {
 	void turtle::forward(int dist) {
 		line loc = create_line(dist);
 		lines.push_back(loc);
-		double rads = to_rads(angle_offset - 90.0f);
-		int x = (acos(abs(rads)) * loc.length) + loc.origin[0];
-		int y = (asin(abs(rads)) * loc.length) + loc.origin[1];
+		int x = loc.get_end_x();
+		int y = loc.get_end_y();
 
-		std::cout << "rads: " << rads << ", x: "
-				<< x << ", y: "
-				<< y << std::endl;
+		std::cout
+				<< "angle: " << loc.angle_offset
+				<< ", rads: " << to_rads(loc.angle_offset)
+				<< ", x: " << x
+				<< ", y: " << y
+				<< std::endl;
 
 		set_location(x, y);
 	}
@@ -48,7 +49,7 @@ namespace t_graphics {
 
 		// Do transformations and drawing
 		glTranslatef(location[0], location[1], 0.0f);
-		glRotatef(angle_offset, 0.0f, 0.0f, 1.0f);
+		glRotatef(angle_offset-90, 0.0f, 0.0f, 1.0f);
 		glTranslatef(-location[0], -location[1], 0.0f);
 
 		glBegin(GL_TRIANGLES);
@@ -63,5 +64,27 @@ namespace t_graphics {
 
 	void turtle::draw_lines() {
 
+		glPushMatrix();
+
+		for (line l : lines) {
+
+			if (!l.pen_up) continue;
+
+			// Do transformations and drawing
+			glTranslatef(l.origin[0], l.origin[1], 0.0f);
+			glRotatef(l.angle_offset-90, 0.0f, 0.0f, 1.0f);
+			glTranslatef(-l.origin[0], -l.origin[1], 0.0f);
+
+			glBegin(GL_LINES);
+				glColor3f(l.color.r, l.color.g, l.color.b);
+				glVertex2d(l.origin[0], l.origin[1]);
+				glVertex2d(l.origin[0], l.origin[1] + l.length);
+			glEnd();
+
+		}
+
+		glFlush();
+
+		glPopMatrix();
 	}
 }
