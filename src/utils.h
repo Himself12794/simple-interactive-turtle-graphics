@@ -10,6 +10,10 @@
 
 namespace t_graphics {
 
+	double norm_angle(double);
+
+	double to_rads(double);
+
 }
 
 #endif /* UTILS_H_ */

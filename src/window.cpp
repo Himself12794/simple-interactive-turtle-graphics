@@ -7,6 +7,7 @@
 
 #include "window.h"
 #include <gl/glut.h>
+#include <iostream>
 
 namespace t_graphics {
 
@@ -17,11 +18,26 @@ namespace t_graphics {
 	}
 
 	void window::display() {
+		glClearColor(1.0F, 1.0F, 1.0F, 1.0F);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		if (!turtles->empty()) {
+			for (turtle *turt : *turtles) {
+				turt->draw_turtle();
+			}
+		}
+
+		glFlush();
+		glutSwapBuffers();
 	}
 
 	window::~window() {
 		delete name;
+		kill();
+	}
+
+	void window::kill() {
+		main.join();
 	}
 
 	window::window(int x, int y, const char* name) {
@@ -30,8 +46,8 @@ namespace t_graphics {
 		this->name = name;
 	}
 
-	void window::add_turtle(turtle &turt) {
-		turtles.push_back(turt);
+	void window::add_turtle(turtle *turt) {
+		turtles->push_back(turt);
 	}
 
 	/**
@@ -48,7 +64,6 @@ namespace t_graphics {
 		curr = this;
 		glutDisplayFunc(draw);
 		init();
-
 		glutMainLoop();
 
 	}
@@ -57,7 +72,7 @@ namespace t_graphics {
 	    glClearColor(1.0, 1.0, 1.0, 1.0);
 	    glMatrixMode(GL_PROJECTION);
 	    glLoadIdentity();
-	    gluOrtho2D(0.0, 1.0, 0.0, 1.0);
+	    gluOrtho2D(0.0, x, 0.0, y);
 	    glMatrixMode(GL_MODELVIEW);
 	}
 

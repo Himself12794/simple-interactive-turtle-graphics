@@ -10,6 +10,7 @@
 
 #include <gl/glut.h>
 #include <vector>
+#include "utils.h"
 
 namespace t_graphics {
 
@@ -26,6 +27,8 @@ namespace t_graphics {
 		int length;
 		color color;
 		int width;
+		point origin;
+		float angle_offset;
 	};
 
 	class turtle {
@@ -46,12 +49,20 @@ namespace t_graphics {
 			this->width = width;
 		}
 
-		void turn(float angle) {
-			angle_offset += angle;
+		void turn_left(float angle) {
+			set_angle(angle_offset + angle);
+		}
+
+		void turn_right(float angle) {
+			set_angle(angle_offset - angle);
 		}
 
 		void pen_down(bool val) {
 			pen_location = val;
+		}
+
+		void set_turtle_width(int width) {
+			this->width = width;
 		}
 
 		void set_location(int x, int y);
@@ -59,6 +70,9 @@ namespace t_graphics {
 		void forward(int dist);
 
 	private:
+		void set_angle(float ang) {
+			angle_offset = norm_angle(ang);
+		}
 		void draw_turtle();
 		void draw_lines();
 		line create_line(int length);
