@@ -19,6 +19,11 @@ static void draw() {
 	curr->display();
 }
 
+static void keys(unsigned char c, int x, int y) {
+	curr->key_func(c, x, y);
+	glutPostRedisplay();
+}
+
 static void timer(int t) {
 	glutPostRedisplay();
 	glutTimerFunc(50, timer, 0);
@@ -70,9 +75,8 @@ void window::open(int argc, char **argv) {
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow(name);
 	curr = this;
-	glutKeyboardFunc(key_callback);
+	glutKeyboardFunc(keys);
 	glutDisplayFunc(draw);
-	glutTimerFunc(50, timer, 0);
 	init();
 	glutMainLoop();
 

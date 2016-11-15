@@ -16,6 +16,7 @@ using namespace t_graphics;
 
 /**
  * Does not implement any thread safety; left to users;
+ * TODO Add option to prevent exiting the window
  */
 class t_graphics::window {
 
@@ -24,7 +25,8 @@ public:
 	virtual ~window();
 	void add_turtle(turtle *turt);
 	void open(int argc, char **argv);
-	void kill();void display();
+	void kill();
+	void display();
 	/**
 	 * This must be set before the window is opened to have an affect.
 	 */
@@ -34,11 +36,13 @@ public:
 	void set_bounded(bool val) {
 		bounded = val;
 	}
+	void key_func(unsigned char c, int i, int i2) {
+		key_callback(c, i, i2);
+	}
 
 private:
 	void (*key_callback)(unsigned char, int, int) = {};
 	void init();
-	void display();
 	std::vector<turtle*> turtles;
 	const char* name;
 	bool bounded = true;
