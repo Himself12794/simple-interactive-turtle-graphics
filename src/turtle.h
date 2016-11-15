@@ -10,33 +10,10 @@
 
 #include <gl/glut.h>
 #include <vector>
-#include <cmath>
 #include "graphics.h"
+#include "utils.h"
 
 using namespace t_graphics;
-
-struct t_graphics::color {
-	GLclampf r;
-	GLclampf g;
-	GLclampf b;
-};
-
-struct t_graphics::line {
-	bool pen_up;
-	int length;
-	color color;
-	int width;
-	point origin;
-	int angle_offset;
-
-	int get_end_x() {
-		return (cos(to_rads(angle_offset)) * length) + origin[0];
-	}
-
-	int get_end_y() {
-		return (sin(to_rads(angle_offset)) * length) + origin[1];
-	}
-};
 
 class t_graphics::turtle {
 
@@ -48,7 +25,7 @@ public:
 	}
 	virtual ~turtle();
 
-	void set_line_color(color &color) {
+	void set_line_color(color color) {
 		this->color = color;
 	}
 
@@ -72,6 +49,14 @@ public:
 		this->width = width;
 	}
 
+	void set_line_width(float width) {
+		line_width = width;
+	}
+
+	void toggle_pen() {
+		pen_location = !pen_location;
+	}
+
 	void set_location(int x, int y);
 
 	void forward(int dist);
@@ -83,8 +68,9 @@ private:
 
 	std::vector<line> lines;
 	point location = {0,0};
-	color color = {0.0,0.0,0.0};
+	color color{0.0,0.0,0.0};
 	int width = 1;
+	float line_width = 1;
 	bool pen_location = true;
 	int angle_offset = 90;
 

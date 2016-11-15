@@ -5,10 +5,11 @@
  *      Author: phwhitin
  */
 
-#include "graphics.h"
 #include "window.h"
 #include <gl/glut.h>
 #include <iostream>
+#include <thread>
+#include <mutex>
 
 using namespace t_graphics;
 
@@ -16,6 +17,11 @@ static window *curr;
 
 static void draw() {
 	curr->display();
+}
+
+static void timer(int t) {
+	glutPostRedisplay();
+	glutTimerFunc(50, timer, 0);
 }
 
 void window::display() {
@@ -39,7 +45,7 @@ window::~window() {
 }
 
 void window::kill() {
-	main.join();
+	//t.join();
 }
 
 window::window(int x, int y, const char* name) {
@@ -64,7 +70,9 @@ void window::open(int argc, char **argv) {
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow(name);
 	curr = this;
+	glutKeyboardFunc(key_callback);
 	glutDisplayFunc(draw);
+	glutTimerFunc(50, timer, 0);
 	init();
 	glutMainLoop();
 

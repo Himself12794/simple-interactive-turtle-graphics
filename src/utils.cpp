@@ -5,7 +5,9 @@
  *      Author: phwhitin
  */
 
-#include "graphics.h"
+#include <GL/glut.h>
+#include "utils.h"
+#include <cmath>
 
 #define PI 3.14159265358979323846
 

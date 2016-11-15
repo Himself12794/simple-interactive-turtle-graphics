@@ -7,8 +7,6 @@
 
 #include <GL/glut.h>
 #include "turtle.h"
-#include <cmath>
-#include <iostream>
 
 using namespace t_graphics;
 
@@ -21,21 +19,15 @@ using namespace t_graphics;
 	}
 
 	line turtle::create_line(int length) {
-		return line {this->pen_location, length, color, width, {location[0], location[1]}, angle_offset};
+		return line {this->pen_location, length, color, line_width, {location[0], location[1]}, angle_offset};
 	}
 
 	void turtle::forward(int dist) {
 		line loc = create_line(dist);
 		lines.push_back(loc);
+
 		int x = loc.get_end_x();
 		int y = loc.get_end_y();
-
-		std::cout
-				<< "angle: " << loc.angle_offset
-				<< ", rads: " << to_rads(loc.angle_offset)
-				<< ", x: " << x
-				<< ", y: " << y
-				<< std::endl;
 
 		set_location(x, y);
 	}
@@ -71,14 +63,16 @@ using namespace t_graphics;
 			if (!l.pen_up) continue;
 
 			// Do transformations and drawing
+			/*
 			glTranslatef(l.origin[0], l.origin[1], 0.0f);
 			glRotatef(l.angle_offset-90, 0.0f, 0.0f, 1.0f);
 			glTranslatef(-l.origin[0], -l.origin[1], 0.0f);
-
+			*/
+			glLineWidth(l.width);
 			glBegin(GL_LINES);
 				glColor3f(l.color.r, l.color.g, l.color.b);
 				glVertex2d(l.origin[0], l.origin[1]);
-				glVertex2d(l.origin[0], l.origin[1] + l.length);
+				glVertex2d(l.get_end_x(), l.get_end_y());
 			glEnd();
 
 		}
