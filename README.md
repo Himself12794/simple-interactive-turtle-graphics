@@ -8,4 +8,4 @@ course.
 This emulates some of the features of turtles found in Python, along with some of 
 the movement found in packages such as ComputerCraft turtles.
 
-To make, simply navigate to Release and run `make`
+To build, simply navigate to Release and run `make`
