@@ -22,7 +22,7 @@ using namespace t_graphics;
 
 	line turtle::create_line(int length) {
 
-		line l{this->pen_location, length, color, line_width, {location[0], location[1]}, angle_offset};
+		line l{length, color, line_width, {location[0], location[1]}, angle_offset};
 
 		/*
 		int x = l.get_end_x();
@@ -79,14 +79,6 @@ using namespace t_graphics;
 
 		for (line l : lines) {
 
-			if (!l.pen_up) continue;
-
-			// Do transformations and drawing
-			/*
-			glTranslatef(l.origin[0], l.origin[1], 0.0f);
-			glRotatef(l.angle_offset-90, 0.0f, 0.0f, 1.0f);
-			glTranslatef(-l.origin[0], -l.origin[1], 0.0f);
-			*/
 			glLineWidth(l.width);
 			glBegin(GL_LINES);
 				glColor3f(l.color.r, l.color.g, l.color.b);

@@ -21,7 +21,6 @@ struct t_graphics::color {
 };
 
 struct t_graphics::line {
-	bool pen_up;
 	int length;
 	color color;
 	float width;
