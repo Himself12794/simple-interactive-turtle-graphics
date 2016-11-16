@@ -19,8 +19,8 @@ namespace t_graphics {
 
 	typedef int point[2];
 
-	int norm_ang(int);
-	double to_rads(double);
+	//int norm_ang(int);
+	//double to_rads(double);
 
 }
 

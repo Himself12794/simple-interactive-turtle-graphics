@@ -8,11 +8,13 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
-#include "utils.h"
 #include "graphics.h"
 #include <cmath>
 
 using namespace t_graphics;
+
+double to_rads(double);
+int norm_ang(int);
 
 struct t_graphics::color {
 	GLclampf r;
@@ -27,11 +29,11 @@ struct t_graphics::line {
 	point origin;
 	int angle_offset;
 
-	int get_end_x() {
+	int get_end_x() const {
 		return (cos(to_rads(angle_offset)) * length) + origin[0];
 	}
 
-	int get_end_y() {
+	int get_end_y() const {
 		return (sin(to_rads(angle_offset)) * length) + origin[1];
 	}
 };
