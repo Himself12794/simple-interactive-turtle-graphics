@@ -54,13 +54,14 @@ void window::kill() {
 }
 
 window::window(int x, int y, const char* name) {
-	this->loc[0] = x;
-	this->loc[1] = y;
+	this->size[0] = x;
+	this->size[1] = y;
 	this->name = name;
 }
 
 void window::add_turtle(turtle *turt) {
 	turtles.push_back(turt);
+	turt->enclosing_window = this;
 }
 
 /**
@@ -71,7 +72,7 @@ void window::open(int argc, char **argv) {
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize(loc[0], loc[1]);
+	glutInitWindowSize(size[0], size[1]);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow(name);
 	curr = this;
@@ -86,6 +87,6 @@ void window::init() {
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0.0, loc[0], 0.0, loc[1]);
+	gluOrtho2D(0.0, size[0], 0.0, size[1]);
 	glMatrixMode(GL_MODELVIEW);
 }

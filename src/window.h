@@ -40,13 +40,21 @@ public:
 		key_callback(c, i, i2);
 	}
 
+	int get_size_x() {
+		return size[0];
+	}
+
+	int get_size_y() {
+		return size[1];
+	}
+
 private:
 	void (*key_callback)(unsigned char, int, int) = {};
 	void init();
 	std::vector<turtle*> turtles;
 	const char* name;
 	bool bounded = true;
-	point loc;
+	point size;
 
 };
 
