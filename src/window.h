@@ -36,8 +36,16 @@ public:
 	void set_bounded(bool val) {
 		bounded = val;
 	}
-	void key_func(unsigned char c, int i, int i2) {
+	void key_func(unsigned char c, int i, int i2) const {
 		key_callback(c, i, i2);
+	}
+
+	int get_size_x() const {
+		return size[0];
+	}
+
+	int get_size_y() const {
+		return size[1];
 	}
 
 private:
@@ -46,7 +54,7 @@ private:
 	std::vector<turtle*> turtles;
 	const char* name;
 	bool bounded = true;
-	point loc;
+	point size;
 
 };
 

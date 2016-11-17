@@ -7,6 +7,8 @@
 
 #include <GL/glut.h>
 #include "turtle.h"
+#include <cmath>
+#include "window.h"
 
 using namespace t_graphics;
 
@@ -19,12 +21,29 @@ using namespace t_graphics;
 	}
 
 	line turtle::create_line(int length) {
-		return line {this->pen_location, length, color, line_width, {location[0], location[1]}, angle_offset};
+
+		line l{length, color, line_width, {location[0], location[1]}, angle_offset};
+
+		/*
+		int x = l.get_end_x();
+		int y = l.get_end_y();
+		if (x > enclosing_window->get_size_x()) {
+			x = enclosing_window->get_size_x() - l.origin[0];
+		}
+
+		if (y > enclosing_window->get_size_y()) {
+			y = enclosing_window->get_size_y() - l.origin[1];
+		}
+
+		l.length = (int)sqrt((x*x)+(y*y));
+		*/
+
+		return l;
 	}
 
 	void turtle::forward(int dist) {
 		line loc = create_line(dist);
-		lines.push_back(loc);
+		if (pen_location) lines.push_back(loc);
 
 		int x = loc.get_end_x();
 		int y = loc.get_end_y();
@@ -60,14 +79,6 @@ using namespace t_graphics;
 
 		for (line l : lines) {
 
-			if (!l.pen_up) continue;
-
-			// Do transformations and drawing
-			/*
-			glTranslatef(l.origin[0], l.origin[1], 0.0f);
-			glRotatef(l.angle_offset-90, 0.0f, 0.0f, 1.0f);
-			glTranslatef(-l.origin[0], -l.origin[1], 0.0f);
-			*/
 			glLineWidth(l.width);
 			glBegin(GL_LINES);
 				glColor3f(l.color.r, l.color.g, l.color.b);

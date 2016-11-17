@@ -73,6 +73,7 @@ private:
 	float line_width = 1;
 	bool pen_location = true;
 	int angle_offset = 90;
+	window *enclosing_window = NULL;
 
 };
 
