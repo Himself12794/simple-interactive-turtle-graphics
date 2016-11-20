@@ -29,10 +29,6 @@ public:
 		this->color = color;
 	}
 
-	void set_line_width(int width) {
-		this->width = width;
-	}
-
 	void turn_left(int angle) {
 		angle_offset = norm_ang(angle_offset + angle);
 	}
