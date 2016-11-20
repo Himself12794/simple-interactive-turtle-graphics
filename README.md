@@ -8,4 +8,7 @@ course.
 This emulates some of the features of turtles found in Python, along with some of 
 the movement found in packages such as ComputerCraft turtles.
 
+This makefile builds with freeglut instead glut32, although it can technically be built, 
+with either.
+
 To build, simply navigate to Release and run `make`
