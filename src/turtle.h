@@ -20,38 +20,24 @@ class t_graphics::turtle {
 friend class window;
 public:
 
-	turtle() {
-
-	}
+	turtle() {}
 	virtual ~turtle();
 
-	void set_line_color(color color) {
-		this->color = color;
-	}
+	void set_line_color(color color) { this->color = color; }
 
-	void turn_left(int angle) {
-		angle_offset = norm_ang(angle_offset + angle);
-	}
+	void turn_left(int angle) {	angle_offset = norm_ang(angle_offset + angle); }
 
-	void turn_right(int angle) {
-		angle_offset = norm_ang(angle_offset - angle);
-	}
+	void turn_right(int angle) { angle_offset = norm_ang(angle_offset - angle); }
 
-	void pen_down(bool val) {
-		pen_location = val;
-	}
+	void pen_down(bool val) { pen_location = val; }
 
-	void set_turtle_width(int width) {
-		this->width = width;
-	}
+	void set_turtle_width(int width) { this->width = width; }
 
-	void set_line_width(float width) {
-		line_width = width;
-	}
+	void set_line_width(float width) { line_width = width; }
 
-	void toggle_pen() {
-		pen_location = !pen_location;
-	}
+	void toggle_pen() { pen_location = !pen_location; }
+
+	void set_heading(int angle) { angle_offset = norm_ang(angle); }
 
 	void set_location(int x, int y);
 
