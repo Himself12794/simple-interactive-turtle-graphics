@@ -9,24 +9,40 @@
 #include <gl/glut.h>
 #include <iostream>
 #include <thread>
+#include <vector>
 #include <mutex>
 
 using namespace t_graphics;
 
 static window *curr;
 
-static void draw() {
-	curr->display();
-}
+static std::vector<window *> windows;
 
 static void keys(unsigned char c, int x, int y) {
 	curr->key_func(c, x, y);
 	glutPostRedisplay();
 }
 
+static void draw() {
+	curr->display();
+}
+
+static void begin() {
+	glutKeyboardFunc(keys);
+	glutDisplayFunc(draw);
+	glutMainLoop();
+}
+
 static void timer(int t) {
 	glutPostRedisplay();
 	glutTimerFunc(50, timer, 0);
+}
+
+window::window(int x, int y, const char* name) {
+	this->size[0] = x;
+	this->size[1] = y;
+	this->name = name;
+	windows.push_back(this);
 }
 
 void window::display() {
@@ -53,12 +69,6 @@ void window::kill() {
 	//t.join();
 }
 
-window::window(int x, int y, const char* name) {
-	this->size[0] = x;
-	this->size[1] = y;
-	this->name = name;
-}
-
 void window::add_turtle(turtle *turt) {
 	turtles.push_back(turt);
 	turt->enclosing_window = this;
@@ -76,11 +86,8 @@ void window::open(int argc, char **argv) {
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow(name);
 	curr = this;
-	glutKeyboardFunc(keys);
-	glutDisplayFunc(draw);
 	init();
-	glutMainLoop();
-
+	begin();
 }
 
 void window::init() {
